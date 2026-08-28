@@ -62,6 +62,17 @@ class rvts_review_form extends \Elementor\Widget_Base {
                         'field_required' => true,
                     ],
                 ],
+            ],
+            
+        );
+
+        $this->add_control(
+            'submit_button_text',
+            [
+                'label' => esc_html__( 'Submit Button Text', 'reviewits' ),
+                'type' => \Elementor\Controls_Manager::TEXT,
+                'default' => esc_html__( 'Submit Review', 'reviewits' ),
+                'label_block' => true,
             ]
         );
 
@@ -71,7 +82,9 @@ class rvts_review_form extends \Elementor\Widget_Base {
     protected function render() {
         $settings = $this->get_settings_for_display();
 
-        $fileds = $settings['review_fields']??[];
+        $fileds = $settings['review_fields'] ?? [];
+
+        $submit_button_text = $settings['submit_button_text'] ?? esc_html__('Submit Review', 'reviewits');
 
         ?>
 
@@ -79,7 +92,7 @@ class rvts_review_form extends \Elementor\Widget_Base {
             <form id="rvts-review-form" method="post">
                 <?php
                 foreach ($fileds as $field) {
-                    $type = $field['field_type'] ?? 'Text';
+                    $type = $field['field_type'] ?? 'text';
                     $label = $field['label_type'] ?? '';
                     $placeholder = $field['placeholder'] ?? '';
                     $required = !empty($field['field_required']) ? 'required' : '';
@@ -101,13 +114,18 @@ class rvts_review_form extends \Elementor\Widget_Base {
                         . esc_attr($required) . '></textarea>';
                     } else {
                         echo '<label>' . esc_html($label) . '</label>';
-                        echo '<input type="' . esc_attr($type) . '" name="' . esc_attr($label) . '" placeholder="' . esc_attr($placeholder) . '" ' . esc_attr($required) . ' />';
+                        echo '<input 
+                        type="' . esc_attr($type) . '" 
+                        name="' . esc_attr($label) . '" 
+                        placeholder="' . 
+                        esc_attr($placeholder) . '" ' . 
+                        esc_attr($required) . ' />';
                     }
                     echo '</div>';
                 }
                 ?>
 
-                <button type="submit"><?php esc_html_e('Submit Review', 'reviewits'); ?></button>
+                <button type="submit"><?php echo esc_html($submit_button_text); ?></button>
             </form>
             
         </div>
