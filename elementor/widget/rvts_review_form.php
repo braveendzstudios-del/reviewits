@@ -85,11 +85,22 @@ class rvts_review_form extends \Elementor\Widget_Base {
                     $required = !empty($field['field_required']) ? 'required' : '';
 
                     echo '<div class="rvts-form-group">';
-                    echo '<label>' . esc_html($label) . '</label>';
-
-                    if ($type === 'textarea') {
-                        echo '<textarea name="' . esc_attr($label) . '" placeholder="' . esc_attr($placeholder) . '" ' . esc_attr($required) . '></textarea>';
+                    
+                    //checkbox field type
+                    if( $type === 'checkbox') {
+                        echo'<label class="rvts-checkbox-label">';
+                        echo '<input type="checkbox" name="' . esc_attr($label) . '" ' . esc_attr($required) . ' value="1" />';
+                        echo '<span>' . esc_html($label) . '</span>';
+                        echo '</label>';
+                    }else if ($type === 'textarea') {
+                        //textarea field type
+                        echo '<label>' . esc_html($label) . '</label>';
+                        echo '<textarea 
+                        name="' . esc_attr($label) . '" 
+                        placeholder="' . esc_attr($placeholder) . '" ' 
+                        . esc_attr($required) . '></textarea>';
                     } else {
+                        echo '<label>' . esc_html($label) . '</label>';
                         echo '<input type="' . esc_attr($type) . '" name="' . esc_attr($label) . '" placeholder="' . esc_attr($placeholder) . '" ' . esc_attr($required) . ' />';
                     }
                     echo '</div>';
