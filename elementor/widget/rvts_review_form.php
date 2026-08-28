@@ -40,7 +40,7 @@ class rvts_review_form extends \Elementor\Widget_Base {
                 'label' => esc_html__( 'Review Form Fields', 'reviewits' ),
                 'type' => \Elementor\Controls_Manager::REPEATER,
                 'fields' => $repeater->get_controls(),
-                'title_field' => '{{{ field_type }}}',
+                'title_field' => '{{{ label_type }}}',
 
                 'default' => [
                     [
