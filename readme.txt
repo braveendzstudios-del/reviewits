@@ -11,8 +11,7 @@ Build a fully custom Testimonial Page using this plugin Elementor is Required
 
 == Description ==
 
-Lockaire lets you design a fully custom password-protected page in WordPress. Unlike other password protection plugins that use WordPress's default plain password form, Lockaire gives you complete control — build your own layout, content, and branding using the shortcode on any page or post you create.
-
+reviewis lets you design a fully custom Testimonail in WordPress Using Elementor.
 = Features =
 * Full Custom Testimonial Page
 * Photo Addtion And Stars

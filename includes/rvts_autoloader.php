@@ -13,6 +13,8 @@ class rvts_autoloader{
         $paths = [
             $base. $class_name . '.php',
             $base . 'includes/' . $class_name . '.php',
+            $base . 'elementor/controls/' . $class_name . '.php',
+            $base . 'elementor/widget/' . $class_name . '.php',
         ];
         foreach ( $paths as $file ) {
             if ( file_exists( $file ) ) {
