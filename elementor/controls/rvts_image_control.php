@@ -10,9 +10,6 @@ class rvts_image_control {
             [
                 'label' => esc_html__( 'Image', 'reviewits' ),
                 'type' => Controls_Manager::MEDIA,
-                'default' => [
-                    'url' => '',
-                ],
                 'condition' => [
                     'field_type' => ['image'],
                 ],

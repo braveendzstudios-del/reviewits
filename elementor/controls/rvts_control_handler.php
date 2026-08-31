@@ -10,7 +10,6 @@ class rvts_control_handler {
             new rvts_placeholder_control(),
             new rvts_required_control(),
             new rvts_rating_control(),
-            new rvts_image_control(),
             new rvts_field_type_control(),
 
         ];

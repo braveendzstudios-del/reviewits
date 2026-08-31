@@ -6,9 +6,9 @@ class rvts_rating_control {
 
     public function register_controls (Repeater $repeater) {
         $repeater->add_control(
-            'stars',
+            'rating',
             [
-                'label' => esc_html__( 'Stars', 'reviewits' ),
+                'label' => esc_html__( 'Rating', 'reviewits' ),
                 'type' => Controls_Manager::NUMBER,
                 'default' => 5,
                 'min' => 1,
@@ -19,6 +19,37 @@ class rvts_rating_control {
                 ],
             ]
         );
-       
+
+        //custom active star control
+        $repeater->add_control(
+            'active_star',
+            [
+                'label' => esc_html__( 'Active Star', 'reviewits' ),
+                'type' => Controls_Manager::MEDIA,
+                'media_types' => ['image/svg+xml'],
+                'default' => [
+                    'url' => plugins_url( '../assets/star-active.svg', __FILE__ ),
+                ],
+                'condition' => [
+                    'field_type' => ['rating'],
+                ],
+            ]
+        );
+
+        //custom inactive star control 
+        $repeater->add_control(
+            'inactive_star',
+            [
+                'label' => esc_html__( 'Inactive Star', 'reviewits' ),
+                'type' => Controls_Manager::MEDIA,
+                'media_types' => ['image/svg+xml'],
+                'default' => [
+                    'url' => plugins_url( '../assets/star-inactive.svg', __FILE__ ),
+                ],
+                'condition' => [
+                    'field_type' => ['rating'],
+                ],
+            ]
+        );
     }
 }
