@@ -48,3 +48,12 @@ function reviewits_elementor_missing_notice() {
     <?php
 }
 
+/*
+Enque the necessary scripts and styles for the plugin
+ */
+
+function enqueue_scripts() {
+    wp_enqueue_script('reviewits-form-review', plugins_url('elementor/assets/js/form_review.js', __FILE__), array('jquery'), null, true);
+}
+
+add_action( 'wp_enqueue_scripts', 'enqueue_scripts' );

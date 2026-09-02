@@ -28,7 +28,7 @@ class rvts_rating_control {
                 'type' => Controls_Manager::MEDIA,
                 'media_types' => ['image/svg+xml'],
                 'default' => [
-                    'url' => plugins_url( '../assets/star-active.svg', __FILE__ ),
+                    'url' => plugins_url( '../assets/svg/star-active.svg', __FILE__ ),
                 ],
                 'condition' => [
                     'field_type' => ['rating'],
@@ -44,7 +44,7 @@ class rvts_rating_control {
                 'type' => Controls_Manager::MEDIA,
                 'media_types' => ['image/svg+xml'],
                 'default' => [
-                    'url' => plugins_url( '../assets/star-inactive.svg', __FILE__ ),
+                    'url' => plugins_url( '../assets/svg/star-inactive.svg', __FILE__ ),
                 ],
                 'condition' => [
                     'field_type' => ['rating'],
