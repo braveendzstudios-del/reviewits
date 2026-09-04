@@ -8,7 +8,12 @@ class rvts_text_field{
         $placeholder = $field['placeholder'] ?? '';
         $required = !empty($field['field_required']) ? 'required' : '';
 
-        echo'<div class="rvts-form-group">';
+        $field_width = $field['field_width'] ?? '[]';
+        $width = $field_width['size'] ?? 100;
+        $unit = $field_width['unit'] ?? '%';
+
+
+        echo'<div class="rvts-form-group" style="width: '. esc_attr($width . $unit) .';">';
         
         echo'<label for="'. esc_attr($label) .'">'.$label.'</label>';
         echo'<input type="text" 

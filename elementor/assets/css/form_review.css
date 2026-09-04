@@ -1,0 +1,13 @@
+.rvts-review-fields {
+    display: flex;
+    flex-wrap: wrap;
+
+}
+
+.rvts-form-group {
+    display: flex;
+    box-sizing: border-box;
+    flex-direction: column;
+    gap:10px;
+    margin-bottom: 15px;
+}

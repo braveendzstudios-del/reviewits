@@ -115,16 +115,16 @@ class rvts_review_form extends \Elementor\Widget_Base {
         ?>
 
         <div class="rvts-review-form">
-            <form id="rvts-review-form" method="post" enctype="multipart/form-data">
+            <form id="rvts-review-form" class="rvts-review-fields" method="post" enctype="multipart/form-data">
                 <?php
 
-                    foreach ($fileds as $field) {
-                        $type = $field['field_type'] ?? 'text';
+                    foreach ($fileds as $filed) {
+                        $type = $filed['field_type'] ?? 'text';
                         $renderer_class = 'rvts_' . $type . '_field';
 
                         if (class_exists($renderer_class)) {
                             $renderer = new $renderer_class();
-                            $renderer->render($field);
+                            $renderer->render($filed);
                         } else {
                             echo '<p>' . esc_html__('Renderer not found for field type: ', 'reviewits') . esc_html($type) . '</p>';
                         }
@@ -132,8 +132,6 @@ class rvts_review_form extends \Elementor\Widget_Base {
                 ?>
 
                 <button type="submit"><?php echo esc_html($submit_button_text); ?></button>
-            </form>
-
             </form>
             
         </div>

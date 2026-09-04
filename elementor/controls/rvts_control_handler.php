@@ -11,6 +11,7 @@ class rvts_control_handler {
             new rvts_required_control(),
             new rvts_rating_control(),
             new rvts_field_type_control(),
+            new rvts_field_width_control(),
 
         ];
 

@@ -52,8 +52,16 @@ function reviewits_elementor_missing_notice() {
 Enque the necessary scripts and styles for the plugin
  */
 
+//enqueue the necessary javascript for the review form
 function enqueue_scripts() {
     wp_enqueue_script('reviewits-form-review', plugins_url('elementor/assets/js/form_review.js', __FILE__), array('jquery'), null, true);
 }
 
 add_action( 'wp_enqueue_scripts', 'enqueue_scripts' );
+
+//enqueue the necessary styles for the review form
+function enqueue_styles() {
+    wp_enqueue_style('reviewits-form-review', plugins_url('elementor/assets/css/form_review.css', __FILE__));
+}
+
+add_action( 'wp_enqueue_scripts', 'enqueue_styles' );

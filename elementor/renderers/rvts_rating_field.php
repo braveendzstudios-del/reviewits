@@ -5,7 +5,11 @@ class rvts_rating_field {
     public function render(array $field) {
         $label = $field['label_type'] ?? '';
 
+        $field_width = $field['field_width'] ?? '[]';
+        $width = $field_width['size'] ?? 100;
+        $unit = $field_width['unit'] ?? '%';
 
+        echo '<div class="rvts-form-group" style="width: '. esc_attr($width . $unit) .';">';
         echo '<label>' . esc_html($label) . '</label>';
             $star = !empty($field['rating']) ?(int) $field ['rating']:5;
             
@@ -30,7 +34,9 @@ class rvts_rating_field {
                 }
 
         echo'</div>';
-
+        
         echo '<input type="hidden" name="' . esc_attr($label) . '" value="0" />';
+
+        echo '</div>';
     }
 }
