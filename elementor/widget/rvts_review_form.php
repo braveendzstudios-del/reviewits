@@ -1,6 +1,6 @@
 <?php
-use Elementor\Controls_Manager;
 use Elementor\Repeater;
+use Elementor\Widget_Base;
 
 class rvts_review_form extends \Elementor\Widget_Base {
 
@@ -20,7 +20,6 @@ class rvts_review_form extends \Elementor\Widget_Base {
         return ['Reviewits'];
     }
 
-  
 
     //controls for the widget
     protected function register_controls()
@@ -34,7 +33,8 @@ class rvts_review_form extends \Elementor\Widget_Base {
         );
 
         $repeater = new Repeater();
-        (new rvts_control_handler())->register_controls($repeater);
+        
+        (new rvts_control_form_handler())->register_controls($repeater);
         
         //default repeater fields for the review form
         $this->add_control(
@@ -85,23 +85,9 @@ class rvts_review_form extends \Elementor\Widget_Base {
         
 
         $this->end_controls_section();
+
+        (new rvts_form_style_handler())->register_style_controls($this);
     }
-
-    //register style controls for the widget
-    protected function register_style_controls() {
-        $this->start_controls_section(
-            'section_style',
-            [
-                'label' => esc_html__( 'Style', 'reviewits' ),
-                'tab' => \Elementor\Controls_Manager::TAB_STYLE,
-            ]
-        );
-
-        // Add style controls here (e.g., colors, typography, spacing)
-
-        $this->end_controls_section();
-    }
-
 
 
     //render the widget output on the frontend

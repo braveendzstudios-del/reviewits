@@ -7,15 +7,17 @@ class rvts_autoloader{
 
 
     public function autoload( string $class_name ) {
+        
 
         $base = plugin_dir_path(__DIR__); // go one level up (plugin root)
 
         $paths = [
             $base. $class_name . '.php',
             $base . 'includes/' . $class_name . '.php',
-            $base . 'elementor/controls/' . $class_name . '.php',
             $base . 'elementor/widget/' . $class_name . '.php',
-            $base . 'elementor/renderers/' . $class_name . '.php',
+            $base . 'elementor/controls/form/' . $class_name . '.php',
+            $base . 'elementor/renderers/form/' . $class_name . '.php',
+            $base . 'elementor/style-controls/form/' . $class_name . '.php',
         ];
         foreach ( $paths as $file ) {
             if ( file_exists( $file ) ) {

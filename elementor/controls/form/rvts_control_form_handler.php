@@ -1,6 +1,6 @@
 <?php
 use Elementor\Repeater;
-class rvts_control_handler {
+class rvts_control_form_handler {
 
 
     public function register_controls(Repeater $repeater) {
