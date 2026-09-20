@@ -117,7 +117,10 @@ class rvts_review_form extends \Elementor\Widget_Base {
                     }
                 ?>
 
+                <div class="rvts-form-group rvts-sumbit-button" >
                 <button type="submit"><?php echo esc_html($submit_button_text); ?></button>
+                </div>
+
             </form>
             
         </div>

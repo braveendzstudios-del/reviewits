@@ -1,10 +1,8 @@
 <?php
-
-use Elementor\Group_Control_Typography;
 use Elementor\Widget_Base;
 
 class rvts_form_label_color_control{
-    function register_style_controls(Widget_Base $widget ) {
+    public function register_style_controls(Widget_Base $widget ) {
         $widget->add_control(
             'rvts_form_label_color',
             [
