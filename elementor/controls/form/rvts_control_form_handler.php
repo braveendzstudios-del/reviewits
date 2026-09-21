@@ -4,7 +4,6 @@ class rvts_control_form_handler {
 
 
     public function register_controls(Repeater $repeater) {
-      
         $controls =[
             new rvts_label_type_control(), 
             new rvts_placeholder_control(),
@@ -12,6 +11,7 @@ class rvts_control_form_handler {
             new rvts_rating_control(),
             new rvts_field_type_control(),
             new rvts_field_width_control(),
+            new rvts_form_field_id_control(),
 
         ];
 
