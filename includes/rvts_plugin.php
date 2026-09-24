@@ -3,6 +3,9 @@
 class rvts_plugin {
    public function __construct() {
       add_action('elementor/widgets/register', array($this, 'register_widgets'));
+      new rvts_review_ajax();
+
+      //rvts_review_database::create_tables();
 
    }
 

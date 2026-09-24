@@ -18,7 +18,12 @@ class rvts_autoloader{
             $base . 'elementor/controls/form/' . $class_name . '.php',
             $base . 'elementor/renderers/form/' . $class_name . '.php',
             $base . 'elementor/style-controls/form/' . $class_name . '.php',
+            $base . 'database/' . $class_name . '.php',
+            $base . 'ajax/' .$class_name . '.php'
         ];
+        
+
+
         foreach ( $paths as $file ) {
             if ( file_exists( $file ) ) {
                 require_once $file;

@@ -86,4 +86,14 @@ jQuery(document).ready(function ($) {
 
     });
 
+    $(document).on('rvts_reset_rating', function () {
+
+        selectedRating = 0;
+
+        ratingInput.val('0');
+
+        updateStars(0);
+
+    });
+
 });

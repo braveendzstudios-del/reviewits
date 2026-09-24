@@ -15,6 +15,6 @@ class rvts_image_control {
                 ],
             ]
         );
-       
+
     }
 }

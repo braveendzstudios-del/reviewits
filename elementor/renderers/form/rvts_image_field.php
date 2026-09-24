@@ -15,7 +15,9 @@ class rvts_image_field {
         echo '<label for="'. esc_attr($label) .'">'.$label.'</label>';
         echo '<input type="file" 
             name="'. esc_attr($label) . '" 
-            id="'. esc_attr($label) . '" ' . $required . '>';
+            id="'. esc_attr($label) . '" |
+            accept="image/*"
+            ' . $required . '>';
 
         echo '</div>';
     }

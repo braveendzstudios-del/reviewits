@@ -18,6 +18,13 @@ if( ! defined( 'ABSPATH' ) ) {
 require_once plugin_dir_path(__FILE__) . 'includes/rvts_autoloader.php';
 new rvts_autoloader();
 
+register_activation_hook(
+    __FILE__,
+    [ 'rvts_review_database', 'create_tables' ]
+);
+
+
+
 function reviewits_init() {
 
     // Check if Elementor is loaded
@@ -54,14 +61,31 @@ Enque the necessary scripts and styles for the plugin
 
 //enqueue the necessary javascript for the review form
 function enqueue_scripts() {
-    wp_enqueue_script('reviewits-form-review', plugins_url('elementor/assets/js/form_review.js', __FILE__), array('jquery'), null, true);
+    wp_enqueue_script('reviewits-form-review', 
+    plugins_url('elementor/assets/js/rvts_form_review.js', __FILE__), 
+    array('jquery'), null, true);
+
+    wp_enqueue_script(
+    'reviewits-rvts-form-ajax-handler',
+    plugins_url( 'elementor/assets/js/rvts_form_ajax_handler.js', __FILE__ ),
+    array( 'jquery' ), null, true);
+
+    wp_localize_script(
+    'reviewits-rvts-form-ajax-handler',
+    'rvts_ajax',
+    array(
+        'ajax_url' => admin_url( 'admin-ajax.php' ),
+        'nonce'    => wp_create_nonce( 'rvts_submit_review' ),
+    )
+);
 }
 
 add_action( 'wp_enqueue_scripts', 'enqueue_scripts' );
 
 //enqueue the necessary styles for the review form
 function enqueue_styles() {
-    wp_enqueue_style('reviewits-form-review', plugins_url('elementor/assets/css/form_review.css', __FILE__));
+    wp_enqueue_style('reviewits-form-review', 
+    plugins_url('elementor/assets/css/rvts_form_review.css', __FILE__));
 }
 
 add_action( 'wp_enqueue_scripts', 'enqueue_styles' );

@@ -35,7 +35,10 @@ class rvts_rating_field {
 
         echo'</div>';
         
-        echo '<input type="hidden" name="' . esc_attr($label) . '" value="0" />';
+        echo '<input type="hidden" 
+        name="' . esc_attr($label) . '" 
+        class="rvts-rating-value"
+        value="0" />';
 
         echo '</div>';
     }
