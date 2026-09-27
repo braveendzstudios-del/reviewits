@@ -7,6 +7,7 @@ class rvts_text_field{
         $label = $field['label_type'] ?? '';
         $placeholder = $field['placeholder'] ?? '';
         $required = !empty($field['field_required']) ? 'required' : '';
+        $field_id    = $field['field_id'] ?? '';
 
         $field_width = $field['field_width'] ?? '[]';
         $width = $field_width['size'] ?? 100;
@@ -17,8 +18,8 @@ class rvts_text_field{
         
         echo'<label for="'. esc_attr($label) .'">'.$label.'</label>';
         echo'<input type="text" 
-        name="'. esc_attr($label) . '" 
-        id="'. esc_attr($label) . '" 
+        name="'. esc_attr($field_id) . '" 
+        id="'. esc_attr($field_id) . '" 
         placeholder="' . esc_attr($placeholder) . '" ' . $required . '>';
 
         echo'</div>';

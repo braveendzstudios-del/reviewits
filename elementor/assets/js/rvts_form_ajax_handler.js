@@ -86,7 +86,7 @@ jQuery(document).ready(function ($) {
 
                     });
 
-                    $(document).trigger('.rvts_reset_rating');
+                    $(document).trigger('rvts_reset_rating');
 
                 }
 

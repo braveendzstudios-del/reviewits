@@ -99,25 +99,62 @@ class rvts_review_form extends \Elementor\Widget_Base {
 
         $fileds = $settings['review_fields'] ?? [];
 
+        $field_configuration = (
+            new rvts_get_field_configuration()
+        )->get( $fileds );
+        
+
         $submit_button_text = $settings['submit_button_text'] ?? esc_html__('Submit Review', 'reviewits');
 
         ?>
 
         <div class="rvts-review-form">
             <form id="rvts-review-form" class="rvts-review-fields" method="post" enctype="multipart/form-data">
+                
+                
                 <?php
 
+                    echo '<input
+                        type="hidden"
+                        name="rvts_field_configuration"
+                        value="' . esc_attr(
+                            wp_json_encode( $field_configuration )
+                        ) . '"
+                    >';
+                    
                     foreach ($fileds as $filed) {
-                        $type = $filed['field_type'] ?? 'text';
-                        $renderer_class = 'rvts_' . $type . '_field';
 
-                        if (class_exists($renderer_class)) {
-                            $renderer = new $renderer_class();
-                            $renderer->render($filed);
-                        } else {
-                            echo '<p>' . esc_html__('Renderer not found for field type: ', 'reviewits') . esc_html($type) . '</p>';
+                    $type     = $filed['field_type'] ?? 'text';
+                    $field_id = $filed['field_id'] ?? '';
+
+                    $renderer_class = 'rvts_' . $type . '_field';
+
+                    if (class_exists($renderer_class)) {
+
+                        $renderer = new $renderer_class();
+                        $renderer->render($filed);
+
+                        /*
+                        * Store the actual Elementor field type
+                        * so AJAX knows what this field is.
+                        */
+                        if ( ! empty( $field_id ) ) {
+                            echo '<input
+                                type="hidden"
+                                name="rvts_field_types[' . esc_attr( $field_id ) . ']"
+                                value="' . esc_attr( $type ) . '"
+                            >';
                         }
+
+                    } else {
+
+                        echo '<p>' .
+                            esc_html__('Renderer not found for field type: ', 'reviewits') .
+                            esc_html($type) .
+                            '</p>';
                     }
+                }
+                    
                 ?>
 
                 <div class="rvts-form-group rvts-sumbit-button" >

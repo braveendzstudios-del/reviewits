@@ -3,6 +3,7 @@ class rvts_checkbox_field {
 
     public function render(array $field) {
         $label = $field['label_type'] ?? '';
+        $field_id    = $field['field_id'] ?? '';
         $required = !empty($field['field_required']) ? 'required' : '';
 
         $field_width = $field['field_width'] ?? '[]';
@@ -13,7 +14,7 @@ class rvts_checkbox_field {
         echo '<label class="rvts-checkbox-label" for="'. esc_attr($label) .'">';
 
         echo '<input type="checkbox" 
-        name="' . esc_attr($label) . '" ' 
+        name="' . esc_attr($field) . '" ' 
         . esc_attr($required) . ' value="1" />';
         echo '<span>' . esc_html($label) . '</span>';
 

@@ -4,6 +4,7 @@ class rvts_image_field {
 
     public function render(array $field) {
         $label = $field['label_type'] ?? '';
+        $field_id    = $field['field_id'] ?? '';
         $required = !empty($field['field_required']) ? 'required' : '';
 
         $field_width = $field['field_width'] ?? '[]';
@@ -14,8 +15,8 @@ class rvts_image_field {
         
         echo '<label for="'. esc_attr($label) .'">'.$label.'</label>';
         echo '<input type="file" 
-            name="'. esc_attr($label) . '" 
-            id="'. esc_attr($label) . '" |
+            name="'. esc_attr($field_id) . '" 
+            id="'. esc_attr($field_id) . '" |
             accept="image/*"
             ' . $required . '>';
 

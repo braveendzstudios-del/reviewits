@@ -3,6 +3,7 @@
 class rvts_autoloader{
     public function __construct() {
         spl_autoload_register( array( $this, 'autoload' ) );
+        new rvts_services_autoloader();
     }
 
 
@@ -19,7 +20,8 @@ class rvts_autoloader{
             $base . 'elementor/renderers/form/' . $class_name . '.php',
             $base . 'elementor/style-controls/form/' . $class_name . '.php',
             $base . 'database/' . $class_name . '.php',
-            $base . 'ajax/' .$class_name . '.php'
+            $base . 'ajax/' .$class_name . '.php',
+            $base . 'services/' . $class_name . '.php',
         ];
         
 

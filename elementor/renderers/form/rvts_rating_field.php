@@ -4,6 +4,7 @@ class rvts_rating_field {
 
     public function render(array $field) {
         $label = $field['label_type'] ?? '';
+        $field_id    = $field['field_id'] ?? '';
 
         $field_width = $field['field_width'] ?? '[]';
         $width = $field_width['size'] ?? 100;
@@ -36,7 +37,8 @@ class rvts_rating_field {
         echo'</div>';
         
         echo '<input type="hidden" 
-        name="' . esc_attr($label) . '" 
+        name="' . esc_attr($field_id) . '" 
+        id= "'.esc_attr($field_id).'"
         class="rvts-rating-value"
         value="0" />';
 

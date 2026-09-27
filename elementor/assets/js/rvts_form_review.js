@@ -12,7 +12,12 @@ jQuery(document).ready(function ($) {
         let selectedRating = 0;
 
 
-        // Change star images
+        /*
+         * ==========================================
+         * UPDATE STARS
+         * ==========================================
+         */
+
         function updateStars(rating) {
 
             stars.each(function () {
@@ -45,7 +50,12 @@ jQuery(document).ready(function ($) {
         }
 
 
-        // Hover over a star
+        /*
+         * ==========================================
+         * HOVER
+         * ==========================================
+         */
+
         stars.on('mouseenter', function () {
 
             const hoverRating = parseInt(
@@ -58,7 +68,12 @@ jQuery(document).ready(function ($) {
         });
 
 
-        // Click a star
+        /*
+         * ==========================================
+         * CLICK
+         * ==========================================
+         */
+
         stars.on('click', function () {
 
             selectedRating = parseInt(
@@ -73,7 +88,12 @@ jQuery(document).ready(function ($) {
         });
 
 
-        // Mouse leaves the rating
+        /*
+         * ==========================================
+         * MOUSE LEAVE
+         * ==========================================
+         */
+
         ratingBox.on('mouseleave', function () {
 
             updateStars(selectedRating);
@@ -81,16 +101,28 @@ jQuery(document).ready(function ($) {
         });
 
 
-        // Start with all inactive
-        updateStars(0);
+        /*
+         * ==========================================
+         * RESET RATING
+         * ==========================================
+         */
 
-    });
+        $(document).on('rvts_reset_rating', function () {
 
-    $(document).on('rvts_reset_rating', function () {
+            selectedRating = 0;
 
-        selectedRating = 0;
+            ratingInput.val('0');
 
-        ratingInput.val('0');
+            updateStars(0);
+
+        });
+
+
+        /*
+         * ==========================================
+         * INITIAL STATE
+         * ==========================================
+         */
 
         updateStars(0);
 
