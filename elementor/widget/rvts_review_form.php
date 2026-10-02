@@ -17,7 +17,7 @@ class rvts_review_form extends \Elementor\Widget_Base {
     }
 
     public function get_categories() {
-        return ['Reviewits'];
+        return ['reviewits'];
     }
 
 
