@@ -12,22 +12,16 @@ class rvts_review_grid_template_options {
                 'orderby'        => 'title',
                 'order'          => 'ASC',
                 'meta_key'       => \Elementor\Core\Base\Document::TYPE_META_KEY,
-                'meta_value'     =>  rvts_review_loop_item_document::get_type(),
+                'meta_value'     => rvts_review_loop_item_document::get_type(),
             ]
         );
 
-        $options = [
-            '' => esc_html__(
-                'Select a Review Template',
-                'reviewits'
-            ),
-        ];
+        $options = [];
 
         foreach ( $templates as $template ) {
 
             $options[ (string) $template->ID ] =
-                $template->post_title;
-
+            $template->post_title;
         }
 
         return $options;

@@ -30,6 +30,12 @@ class rvts_review_grid_controls {
                 'label_block' => true,
                 'options'     => $template_options,
                 'default'     => '',
+                'select2options' => [
+                    'placeholder' => esc_html__(
+                        'Select a Review Template',
+                        'reviewits'
+                    ),
+                ],
             ]
         );
 

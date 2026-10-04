@@ -2,7 +2,45 @@
 
 class rvts_review_grid_empty_state {
 
-    public function render() {
+    public function render( string $type = 'template' ) {
+
+        /*
+         * --------------------------------------------------
+         * EMPTY STATE CONTENT
+         * --------------------------------------------------
+         */
+
+        if ( $type === 'reviews' ) {
+
+            $title = esc_html__(
+                'No Reviews Found',
+                'reviewits'
+            );
+
+            $description = esc_html__(
+                'There are no reviews to display yet.',
+                'reviewits'
+            );
+
+        } else {
+
+            $title = esc_html__(
+                'Select a Review Template',
+                'reviewits'
+            );
+
+            $description = esc_html__(
+                'Choose a Review Template to display your reviews.',
+                'reviewits'
+            );
+        }
+
+
+        /*
+         * --------------------------------------------------
+         * EMPTY STATE HTML
+         * --------------------------------------------------
+         */
 
         echo '
         <div class="rvts-review-grid-empty">
@@ -12,24 +50,21 @@ class rvts_review_grid_empty_state {
             </div>
 
             <h3>
-                ' .
-                esc_html__(
-                    'Review Grid starts with a template.',
-                    'reviewits'
-                )
-                . '
+                ' . $title . '
             </h3>
 
             <p>
-                ' .
-                esc_html__(
-                    'Either choose an existing template or create a new one and use it as the main item for your review grid.',
-                    'reviewits'
-                )
-                . '
+                ' . $description . '
             </p>
 
         </div>';
+
+
+        /*
+         * --------------------------------------------------
+         * EMPTY STATE CSS
+         * --------------------------------------------------
+         */
 
         echo '
         <style>
