@@ -35,6 +35,13 @@ Class rvts_form_style_groups {
                 ],
             ],
 
+            'textarea' =>[
+                'label'=> esc_html__( 'Text Area Style', 'reviewits' ),
+                'controls'=>[
+                    'rvts_form_input_textarea_height_control',
+                ],
+            ],
+
             'Rating' => [
                 'label' => esc_html__( 'Rating Style', 'reviewits' ),
                 'controls' => [

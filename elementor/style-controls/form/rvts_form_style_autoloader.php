@@ -19,6 +19,7 @@ class rvts_form_style_autoloader {
             $base . 'form_input_controls/form_input_border_control/',
             $base . 'form_input_controls/form_input_placeholder_control/',
             $base . 'form_label_controls/',
+            $base . 'form_input_textarea/',
             $base . 'form_input_rating_controls/',
             $base . 'form_input_button_controls/',
             $base . 'form_input_button_controls/rvts_form_button_top_control/',
