@@ -36,6 +36,7 @@ class rvts_review_grid extends \Elementor\Widget_Base {
     protected function register_controls() {
 
         ( new rvts_review_grid_controls() )->register( $this );
+        
 
         ( new rvts_review_grid_style_controls() )->register( $this );
 

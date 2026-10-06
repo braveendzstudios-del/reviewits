@@ -8,31 +8,27 @@ class rvts_review_loop {
     ) {
 
         if ( ! $template_id || empty( $reviews ) ) {
-
             return;
         }
-
 
         foreach ( $reviews as $review ) {
 
             if ( empty( $review['id'] ) ) {
-
                 continue;
             }
-
 
             rvts_review_context::set(
                 absint( $review['id'] )
             );
 
-
-            echo \Elementor\Plugin::instance()
+            $content = \Elementor\Plugin::instance()
                 ->frontend
-                ->get_builder_content_for_display(
+                ->get_builder_content(
                     $template_id
                 );
-        }
 
+            echo $content;
+        }
 
         rvts_review_context::clear();
     }

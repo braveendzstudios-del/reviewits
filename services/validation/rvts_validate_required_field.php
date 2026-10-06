@@ -42,7 +42,10 @@ class rvts_validate_required_field {
 
                 return new WP_Error(
                     'required_field',
-                    sprintf( '%s is required.', $label )
+                    sprintf(
+                        '%s is required.',
+                        $label
+                    )
                 );
             }
         }

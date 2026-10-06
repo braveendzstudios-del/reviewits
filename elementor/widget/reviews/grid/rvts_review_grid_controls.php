@@ -68,6 +68,18 @@ class rvts_review_grid_controls {
             ]
         );
 
+            // Reviews controls
+        ( new rvts_review_grid_reviews_controls() )->register(
+            $widget
+        );
+        
+        ( new rvts_review_grid_layout_controls() )->register(
+            $widget
+        );
+
         $widget->end_controls_section();
+
+        
+    
     }
 }

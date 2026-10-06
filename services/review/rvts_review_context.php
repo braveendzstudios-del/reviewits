@@ -21,4 +21,6 @@ class rvts_review_context {
 
         self::$review_id = null;
     }
+
+    
 }

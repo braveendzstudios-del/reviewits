@@ -11,10 +11,8 @@ use Elementor\Repeater;
                 'label' => esc_html__( 'Field Type', 'reviewits' ),
                 'type' => Controls_Manager::SELECT,
                 'options' => [
-                    'text' => esc_html__( 'Name', 'reviewits' ),
+                    'text' => esc_html__( 'Text', 'reviewits' ),
                     'textarea' => esc_html__( 'Textarea', 'reviewits' ),
-                    'email' => esc_html__( 'Email', 'reviewits' ),
-                    'checkbox' => esc_html__( 'Checkbox', 'reviewits' ),
                     'image' => esc_html__( 'Image', 'reviewits' ),
                     'rating' => esc_html__( 'Rating', 'reviewits' ),
                 ],
