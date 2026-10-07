@@ -18,7 +18,13 @@ class rvts_autoloader{
 
             /**Widgets */
             $base . 'elementor/widget/' . $class_name . '.php',
+
+            /** Review Grid Widgets */
             $base . 'elementor/widget/reviews/grid/' . $class_name . '.php',
+            $base .  'elementor/widget/reviews/grid/controls/' . $class_name . '.php',
+            $base .  'elementor/widget/reviews/grid/rendering/' . $class_name . '.php',
+            $base .  'elementor/widget/reviews/grid/style/' . $class_name . '.php',
+
 
             /**Widget For Reviews */
             $base . 'elementor/widget/reviews/review loop widgets/heading/' . $class_name . '.php',
