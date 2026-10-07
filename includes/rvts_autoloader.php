@@ -27,7 +27,13 @@ class rvts_autoloader{
 
 
             /**Widget For Reviews */
+            
+            /** Heading Widget */
             $base . 'elementor/widget/reviews/review loop widgets/heading/' . $class_name . '.php',
+            $base . 'elementor/widget/reviews/review loop widgets/heading/controls/' . $class_name . '.php',
+            $base . 'elementor/widget/reviews/review loop widgets/heading/rendering/' . $class_name . '.php',
+
+
             $base . 'elementor/widget/reviews/review loop widgets/text/' . $class_name . '.php',
             $base . 'elementor/widget/reviews/review loop widgets/image/' . $class_name . '.php',
             $base . 'elementor/widget/reviews/review loop widgets/stars/' . $class_name . '.php',

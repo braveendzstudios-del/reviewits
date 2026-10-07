@@ -31,6 +31,12 @@ class rvts_review_heading extends \Elementor\Widget_Base {
 
     protected function register_controls() {
 
+        /*
+         * ==========================================
+         * CONTENT
+         * ==========================================
+         */
+
         $this->start_controls_section(
             'review_heading_section',
             [
@@ -42,6 +48,12 @@ class rvts_review_heading extends \Elementor\Widget_Base {
             ]
         );
 
+
+        /*
+         * ------------------------------------------
+         * REVIEW FIELD
+         * ------------------------------------------
+         */
 
         $field_options =
             ( new rvts_get_review_field_options() )->get();
@@ -62,7 +74,43 @@ class rvts_review_heading extends \Elementor\Widget_Base {
         );
 
 
+        /*
+         * ------------------------------------------
+         * CHARACTER LIMIT
+         * ------------------------------------------
+         */
+
+        ( new rvts_review_heading_character_limit_control() )->register(
+            $this
+        );
+
+        ( new rvts_review_heading_tag_control() )->register(
+            $this
+        );
+
+
         $this->end_controls_section();
+
+
+        /*
+         * ==========================================
+         * STYLE CONTROLS
+         * ==========================================
+         */
+
+        ( new rvts_review_heading_color_control() )->register(
+            $this
+        );
+
+
+        ( new rvts_review_heading_typography_control() )->register(
+            $this
+        );
+
+
+        ( new rvts_review_heading_alignment_control() )->register(
+            $this
+        );
     }
 
 
@@ -71,8 +119,16 @@ class rvts_review_heading extends \Elementor\Widget_Base {
         $settings = $this->get_settings_for_display();
 
 
+        /*
+         * ==========================================
+         * GET FIELD ID
+         * ==========================================
+         */
+
         $field_id = isset( $settings['field_id'] )
-            ? sanitize_key( $settings['field_id'] )
+            ? sanitize_key(
+                trim( $settings['field_id'] )
+            )
             : '';
 
 
@@ -82,7 +138,49 @@ class rvts_review_heading extends \Elementor\Widget_Base {
         }
 
 
+        /*
+         * ==========================================
+         * GET CURRENT REVIEW
+         * ==========================================
+         */
+
         $review_id = rvts_review_context::get();
+
+
+        /*
+         * ==========================================
+         * EDITOR PREVIEW
+         * ==========================================
+         *
+         * When editing the Review Loop Item directly,
+         * there may be no review context.
+         *
+         * In that case, use the first saved review
+         * only for the Elementor preview.
+         */
+
+        if (
+            ! $review_id &&
+            \Elementor\Plugin::instance()->editor->is_edit_mode()
+        ) {
+
+            $preview_reviews = (
+                new rvts_get_reviews()
+            )->get([
+                'limit'  => 1,
+                'offset' => 0,
+            ]);
+
+
+            if (
+                ! empty( $preview_reviews[0]['id'] )
+            ) {
+
+                $review_id = absint(
+                    $preview_reviews[0]['id']
+                );
+            }
+        }
 
 
         if ( ! $review_id ) {
@@ -91,7 +189,15 @@ class rvts_review_heading extends \Elementor\Widget_Base {
         }
 
 
-        $fields = ( new rvts_get_review_fields() )->get(
+        /*
+         * ==========================================
+         * GET REVIEW FIELDS
+         * ==========================================
+         */
+
+        $fields = (
+            new rvts_get_review_fields()
+        )->get(
             $review_id
         );
 
@@ -102,16 +208,74 @@ class rvts_review_heading extends \Elementor\Widget_Base {
         }
 
 
+        /*
+         * ==========================================
+         * FIND SELECTED FIELD
+         * ==========================================
+         */
+
         foreach ( $fields as $field ) {
 
             if (
                 isset( $field['field_id'] ) &&
-                $field['field_id'] === $field_id
+                sanitize_key(
+                    trim( $field['field_id'] )
+                ) === $field_id
             ) {
 
-                echo esc_html(
+                /*
+                 * ----------------------------------
+                 * FIELD VALUE
+                 * ----------------------------------
+                 */
+
+                $heading = isset(
                     $field['field_value']
+                )
+                    ? (string) $field['field_value']
+                    : '';
+
+
+                /*
+                 * ----------------------------------
+                 * CHARACTER LIMIT
+                 * ----------------------------------
+                 */
+
+                $character_limit = isset(
+                    $settings['character_limit']
+                )
+                    ? absint(
+                        $settings['character_limit']
+                    )
+                    : 30;
+
+
+                if ( $character_limit > 0 ) {
+
+                    $heading = (
+                        new rvts_review_heading_clamp()
+                    )->clamp(
+                        $heading,
+                        $character_limit
+                    );
+                }
+
+
+                /*
+                 * ----------------------------------
+                 * OUTPUT
+                 * ----------------------------------
+                 */
+
+                echo '<div class="rvts-review-heading">';
+
+                echo esc_html(
+                    $heading
                 );
+
+                echo '</div>';
+
 
                 return;
             }
