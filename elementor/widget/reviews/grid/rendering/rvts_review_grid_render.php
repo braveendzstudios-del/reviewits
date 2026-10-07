@@ -84,14 +84,11 @@ class rvts_review_grid_render {
         echo '<div class="rvts-review-grid">';
 
 
-        /*
-         * Render selected Review Template
-         * for every review.
-         */
-        ( new rvts_review_loop() )->render(
-            $template_id,
-            $reviews
-        );
+    ( new rvts_review_grid_layout() )->render(
+    $settings,
+    $reviews,
+    $template_id
+);
 
 
         echo '</div>';
