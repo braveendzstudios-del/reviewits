@@ -1,0 +1,19 @@
+.rvts-review-text-toggle-wrapper button{
+    padding: 0;
+    border: none;
+    color: #000;
+}
+
+.rvts-review-text-toggle-wrapper button:focus, 
+.rvts-review-text-toggle-wrapper button:hover
+{
+    background:none !important;
+    color: #000000;
+    text-decoration: none;
+}
+
+.rvts-review-text-toggle-wrapper button:focus-visible
+{
+    border:none !important;
+    outline:none !important;
+}

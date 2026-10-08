@@ -70,6 +70,12 @@ function enqueue_scripts() {
     plugins_url( 'elementor/assets/js/rvts_form_ajax_handler.js', __FILE__ ),
     array( 'jquery' ), null, true);
 
+    wp_enqueue_script(
+        'reviewits-rvts-review-text-read-more',
+        plugins_url( 'elementor/assets/js/rvts_review_text_read_more.js', __FILE__ ),
+        array( 'jquery' ), null, true
+    );
+
     wp_localize_script(
     'reviewits-rvts-form-ajax-handler',
     'rvts_ajax',
@@ -86,6 +92,11 @@ add_action( 'wp_enqueue_scripts', 'enqueue_scripts' );
 function enqueue_styles() {
     wp_enqueue_style('reviewits-form-review', 
     plugins_url('elementor/assets/css/rvts_form_review.css', __FILE__));
+
+    wp_enqueue_style(
+        'reviewits-rvts-review-text-read-more',
+        plugins_url( 'elementor/assets/css/rvts_review_text_widget.css', __FILE__ )
+    );
 }
 
 add_action( 'wp_enqueue_scripts', 'enqueue_styles' );

@@ -32,9 +32,13 @@ class rvts_autoloader{
             $base . 'elementor/widget/reviews/review loop widgets/heading/' . $class_name . '.php',
             $base . 'elementor/widget/reviews/review loop widgets/heading/controls/' . $class_name . '.php',
             $base . 'elementor/widget/reviews/review loop widgets/heading/rendering/' . $class_name . '.php',
-
-
+            
+            /** Text Widget */
             $base . 'elementor/widget/reviews/review loop widgets/text/' . $class_name . '.php',
+            $base . 'elementor/widget/reviews/review loop widgets/text/controls/' . $class_name . '.php',
+            $base . 'elementor/widget/reviews/review loop widgets/text/rendering/' . $class_name . '.php',
+
+          
             $base . 'elementor/widget/reviews/review loop widgets/image/' . $class_name . '.php',
             $base . 'elementor/widget/reviews/review loop widgets/stars/' . $class_name . '.php',
             
