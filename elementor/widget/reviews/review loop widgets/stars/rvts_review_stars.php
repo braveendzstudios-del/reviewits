@@ -1,33 +1,26 @@
+
 <?php
 
 class rvts_review_stars extends \Elementor\Widget_Base {
 
     public function get_name() {
-
         return 'rvts_review_stars';
     }
 
-
     public function get_title() {
-
         return esc_html__(
             'Review Stars',
             'reviewits'
         );
     }
 
-
     public function get_icon() {
-
         return 'eicon-star';
     }
 
-
     public function get_categories() {
-
         return [ 'reviewits' ];
     }
-
 
     protected function register_controls() {
 
@@ -42,10 +35,8 @@ class rvts_review_stars extends \Elementor\Widget_Base {
             ]
         );
 
-
         $field_options =
             ( new rvts_get_review_field_options() )->get();
-
 
         $this->add_control(
             'field_id',
@@ -61,102 +52,120 @@ class rvts_review_stars extends \Elementor\Widget_Base {
             ]
         );
 
+        ( new rvts_review_stars_rated_svg_control() )->register(
+            $this
+        );
+
+        ( new rvts_review_stars_unrated_svg_control() )->register(
+            $this
+        );
+
 
         $this->end_controls_section();
-    }
 
+        ( new rvts_review_stars_style_control() )->register( $this );
+        ( new rvts_review_stars_spacing_control() )->register( $this );
+        ( new rvts_review_stars_alignment_control() )->register( $this );
+        
+    }
 
     protected function render() {
 
         $settings = $this->get_settings_for_display();
 
-
         $field_id = isset( $settings['field_id'] )
             ? sanitize_key( $settings['field_id'] )
             : '';
 
-
         if ( ! $field_id ) {
-
             return;
         }
-
 
         $review_id = rvts_review_context::get();
 
+        /*
+        * Elementor editor preview fallback.
+        * Use the latest review when no review context exists.
+        */
+        if (
+            ! $review_id &&
+            \Elementor\Plugin::$instance->editor->is_edit_mode()
+        ) {
+            $preview_reviews = ( new rvts_get_reviews() )->get( [
+                'limit'  => 1,
+                'offset' => 0,
+            ] );
+
+            if ( ! empty( $preview_reviews[0]['id'] ) ) {
+                $review_id = absint( $preview_reviews[0]['id'] );
+            }
+        }
 
         if ( ! $review_id ) {
-
             return;
         }
 
-
-        $fields = ( new rvts_get_review_fields() )->get(
-            $review_id
-        );
-
-
-        if ( empty( $fields ) ) {
-
-            return;
-        }
-
+        $fields = ( new rvts_get_review_fields() )->get( $review_id );
 
         foreach ( $fields as $field ) {
 
             if (
                 isset( $field['field_id'] ) &&
-                $field['field_id'] === $field_id
+                sanitize_key( $field['field_id'] ) === $field_id
             ) {
+                $rating = absint( $field['field_value'] ?? 0 );
 
-                $rating = absint(
-                    $field['field_value']
-                );
+            $rated_svg = ! empty( $settings['rated_star_svg']['url'] )
+                ? $settings['rated_star_svg']['url']
+                : '';
+
+            $unrated_svg = ! empty( $settings['unrated_star_svg']['url'] )
+                ? $settings['unrated_star_svg']['url']
+                : '';
+
+            $rated_svg = $settings['rated_star_svg']['url'] ?? '';
+            $unrated_svg = $settings['unrated_star_svg']['url'] ?? '';
+
+        /*
+        * Convert relative SVG paths to full URLs.
+        * Leave existing full URLs unchanged.
+        */
+        if ( $rated_svg && ! preg_match( '#^https?://#i', $rated_svg ) ) {
+            $rated_svg = content_url(
+                ltrim( str_replace( 'reviewits/', 'plugins/reviewits/', $rated_svg ), '/' )
+            );
+        }
+
+        if ( $unrated_svg && ! preg_match( '#^https?://#i', $unrated_svg ) ) {
+            $unrated_svg = content_url(
+                ltrim( str_replace( 'reviewits/', 'plugins/reviewits/', $unrated_svg ), '/' )
+            );
+        }
 
 
-                if ( $rating < 1 ) {
+        echo '<div class="rvts-review-stars" style="display:flex;">';
+
+        for ( $i = 1; $i <= 5; $i++ ) {
+
+            $star_url = ( $i <= $rating )
+                ? $rated_svg
+                : $unrated_svg;
+
+            if ( ! empty( $star_url ) ) {
+                echo '<img
+                    src="' . esc_url( $star_url ) . '"
+                    alt="' . esc_attr( $i <= $rating ? 'Rated star' : 'Unrated star' ) . '"
+                    class="rvts-review-star"
+                />';
+            }
+        }
+
+        echo '</div>';
+
 
                     return;
                 }
-
-
-                if ( $rating > 5 ) {
-
-                    $rating = 5;
-                }
-
-
-                echo '<div class="rvts-review-stars" aria-label="' .
-                    esc_attr(
-                        sprintf(
-                            esc_html__(
-                                '%d out of 5 stars',
-                                'reviewits'
-                            ),
-                            $rating
-                        )
-                    ) .
-                    '">';
-
-
-                for ( $i = 1; $i <= 5; $i++ ) {
-
-                    if ( $i <= $rating ) {
-
-                        echo '<span class="rvts-star rvts-star-filled">★</span>';
-
-                    } else {
-
-                        echo '<span class="rvts-star rvts-star-empty">☆</span>';
-                    }
-                }
-
-
-                echo '</div>';
-
-
-                return;
             }
-        }
     }
+
 }
