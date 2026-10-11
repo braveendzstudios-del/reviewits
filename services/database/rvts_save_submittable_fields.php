@@ -58,11 +58,19 @@ class rvts_save_submittable_fields {
                     continue;
                 }
 
+                $max_stars = (
+                    'rating' === $field_type
+                    && isset( $configuration['rating'] )
+                )
+                    ? absint( $configuration['rating'] )
+                    : 0;
+
                 $result = $field_saver->save(
                     $review_id,
                     (string) $field_id,
                     $field_type,
-                    $field['value']
+                    $field['value'],
+                    $max_stars
                 );
             }
 

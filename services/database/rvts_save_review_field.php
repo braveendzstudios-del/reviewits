@@ -1,3 +1,4 @@
+
 <?php
 
 class rvts_save_review_field {
@@ -6,7 +7,12 @@ class rvts_save_review_field {
         int $review_id,
         string $field_id,
         string $field_type,
-        $field_value
+
+        /**
+         * @param mixed $field_value
+         */
+        mixed $field_value,
+        int $max_stars = 0
     ) {
 
         global $wpdb;
@@ -17,20 +23,28 @@ class rvts_save_review_field {
             $field_value = wp_json_encode( $field_value );
         }
 
+        $data = [
+            'review_id'   => $review_id,
+            'field_id'    => sanitize_key( $field_id ),
+            'field_type'  => sanitize_key( $field_type ),
+            'field_value' => $field_value,
+            'max_stars'   => (
+                'rating' === $field_type
+            ) ? max( 0, $max_stars ) : 0,
+        ];
+
+        $formats = [
+            '%d',
+            '%s',
+            '%s',
+            '%s',
+            '%d',
+        ];
+
         $inserted = $wpdb->insert(
             $table,
-            [
-                'review_id'  => $review_id,
-                'field_id'   => sanitize_key( $field_id ),
-                'field_type' => sanitize_key( $field_type ),
-                'field_value' => $field_value,
-            ],
-            [
-                '%d',
-                '%s',
-                '%s',
-                '%s',
-            ]
+            $data,
+            $formats
         );
 
         if ( false === $inserted ) {
