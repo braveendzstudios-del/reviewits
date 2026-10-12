@@ -8,7 +8,7 @@
  * Author: kulwindersingh5555
  * License: GPL2 or later
  * Text Domain: reviewits
- *  Requires Plugins: elementor
+ * Requires Plugins: elementor
  */
 
 if( ! defined( 'ABSPATH' ) ) {

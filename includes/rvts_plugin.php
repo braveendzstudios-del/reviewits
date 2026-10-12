@@ -56,7 +56,49 @@ class rvts_plugin {
             10,
             2
         );
+
+        add_filter(
+            'template_include',
+            [ $this, 'review_loop_item_preview_canvas' ],
+            99
+        );
     }
+
+
+    
+    public function review_loop_item_preview_canvas(string $template ) {
+
+        if ( ! isset( $_GET['elementor-preview'] ) ) {
+            return $template;
+        }
+
+        $preview_id = absint( $_GET['elementor-preview'] );
+
+        if ( ! $preview_id ) {
+            return $template;
+        }
+
+        $document = \Elementor\Plugin::$instance
+            ->documents
+            ->get( $preview_id );
+
+        if (
+            ! $document ||
+            'rvts-review-loop-item' !== $document::get_type()
+        ) {
+            return $template;
+        }
+
+        $canvas_template = ELEMENTOR_PATH
+            . 'modules/page-templates/templates/canvas.php';
+
+        if ( file_exists( $canvas_template ) ) {
+            return $canvas_template;
+        }
+
+        return $template;
+    }
+
 
 
     /**
