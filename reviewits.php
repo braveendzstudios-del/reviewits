@@ -9,6 +9,7 @@
  * License: GPL2 or later
  * Text Domain: reviewits
  * Requires Plugins: elementor
+ * Version: 1.0.0
  */
 
 if( ! defined( 'ABSPATH' ) ) {
