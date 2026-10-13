@@ -22,13 +22,14 @@ class rvts_review_field_id_validator {
                 $errors[] = [
                     'field_id' => $field_id,
                     'index'    => $index,
-                    'message'  => sprintf(
-                        esc_html__(
-                            'Field ID "%s" is already used in this form.',
-                            'reviewits'
-                        ),
-                        $field_id
+                    'message' => sprintf(
+                    /* translators: %s: Review field ID that is already used in the form. */
+                    esc_html__(
+                        'Field ID "%s" is already used in this form.',
+                        'reviewits'
                     ),
+                    $field_id
+                ),
                 ];
 
                 continue;
