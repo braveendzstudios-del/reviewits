@@ -1,6 +1,10 @@
 
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
 class rvts_review_image extends \Elementor\Widget_Base {
 
     public function get_name() {

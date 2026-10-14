@@ -12,7 +12,7 @@ class rvts_textarea_field {
         $unit = $field_width['unit'] ?? '%';
 
         echo '<div class="rvts-form-group" style="width: '. esc_attr($width . $unit) .';">';
-        echo '<label for="'. esc_attr($label) .'">'.$label.'</label>';
+        echo '<label for="'. esc_attr($label) .'">'  . esc_html__($label).'</label>';
         echo '<textarea 
             name="'. esc_attr($field_id) . '" 
             id="'. esc_attr($field_id) . '" 

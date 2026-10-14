@@ -1,4 +1,9 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
 use \Elementor\Widget_Base;
 
 class rvts_review_image_height_control {

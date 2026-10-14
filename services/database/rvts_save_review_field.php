@@ -1,6 +1,10 @@
 
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
 class rvts_save_review_field {
 
     public function save(

@@ -1,4 +1,9 @@
+
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
 
 class rvts_review_heading extends \Elementor\Widget_Base {
 

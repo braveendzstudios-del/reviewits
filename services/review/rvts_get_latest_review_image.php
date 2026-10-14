@@ -1,6 +1,10 @@
 
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
 class rvts_get_latest_review_image {
 
     public function get( string $field_id ) {

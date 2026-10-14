@@ -1,6 +1,8 @@
 <?php 
 
 class rvts_autoloader{
+
+    
     public function __construct() {
         spl_autoload_register( array( $this, 'autoload' ) );
         new rvts_services_autoloader();
@@ -8,8 +10,7 @@ class rvts_autoloader{
 
 
     public function autoload( string $class_name ) {
-        
-
+        if ( ! defined( 'ABSPATH' ) ) exit;
         $base = plugin_dir_path(__DIR__); // go one level up (plugin root)
 
         $paths = [

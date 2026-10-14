@@ -1,5 +1,8 @@
-
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
 
 class rvts_review_stars extends \Elementor\Widget_Base {
 

@@ -1,6 +1,10 @@
 
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
 class rvts_review_stars_style_control {
 
     public function register( \Elementor\Widget_Base $widget ) {
