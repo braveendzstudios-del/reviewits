@@ -1,4 +1,9 @@
+
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
 
 class rvts_get_review_fields {
 
@@ -14,8 +19,8 @@ class rvts_get_review_fields {
                 FROM {$table}
                 WHERE review_id = %d
                 ORDER BY id ASC",
-                $review_id
-            ),
+                absint( $review_id )
+            ), // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name uses the trusted WordPress database prefix and a fixed suffix; review_id uses a prepared placeholder.
             ARRAY_A
         );
 

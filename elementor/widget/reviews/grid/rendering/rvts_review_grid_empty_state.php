@@ -50,11 +50,11 @@ class rvts_review_grid_empty_state {
             </div>
 
             <h3>
-                ' . esc_html__( $title ). '
+                ' . esc_html( $title ). '
             </h3>
 
             <p>
-                ' . esc_html__($description) . '
+                ' . esc_html($description) . '
             </p>
 
         </div>';

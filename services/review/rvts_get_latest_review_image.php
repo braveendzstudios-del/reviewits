@@ -20,6 +20,10 @@ class rvts_get_latest_review_image {
             return null;
         }
 
+        // Escape table names before interpolating them into the SQL query.
+        $reviews_table = esc_sql( $reviews_table );
+        $fields_table  = esc_sql( $fields_table );
+
         $image = $wpdb->get_row(
             $wpdb->prepare(
                 "SELECT

@@ -1,4 +1,9 @@
+
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
 
 class rvts_get_reviews {
 
@@ -36,7 +41,7 @@ class rvts_get_reviews {
                 LIMIT %d OFFSET %d",
                 $limit,
                 $offset
-            ),
+            ), // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name is built from the trusted WordPress database prefix and a fixed suffix; limit and offset use prepared placeholders.
             ARRAY_A
         );
 

@@ -1,6 +1,6 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) exit;
+ if ( ! defined( 'ABSPATH' ) ) exit;
 
 use Elementor\Core\Documents_Manager;
 
@@ -69,6 +69,9 @@ class rvts_plugin {
 
     
     public function review_loop_item_preview_canvas(string $template ) {
+        
+          // Read-only Elementor preview ID; this method does not change data.
+          // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only preview request; no data is modified.
 
         if ( ! isset( $_GET['elementor-preview'] ) ) {
             return $template;
@@ -233,7 +236,7 @@ class rvts_plugin {
                         throw new \Exception(
                             sprintf(
                                 'Please choose different Field IDs. The ID "%s" is already being used.',
-                                $field_id
+                                esc_html( $field_id )
                             )
                         );
                     }
