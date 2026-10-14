@@ -1,6 +1,8 @@
 
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 class rvts_checkbox_field {
 
     public function render( array $field ) {

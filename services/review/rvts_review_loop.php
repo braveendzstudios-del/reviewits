@@ -27,7 +27,7 @@ class rvts_review_loop {
                     $template_id
                 );
 
-            echo $content;
+            echo  wp_kses_post($content);
         }
 
         rvts_review_context::clear();

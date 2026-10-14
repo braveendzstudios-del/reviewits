@@ -1,6 +1,6 @@
 
 <?php
-
+if ( ! defined( 'ABSPATH' ) ) exit;
 class rvts_text_field {
 
     public function render( array $field ) {
