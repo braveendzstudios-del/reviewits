@@ -14,7 +14,6 @@ class rvts_save_review_image_field
     ) {
 
         global $wpdb;
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery -- Writes to the Reviewits custom review fields table; no equivalent WordPress core insert API exists.
 
         $table = $wpdb->prefix . 'rvts_review_fields';
 
@@ -22,6 +21,7 @@ class rvts_save_review_image_field
             $attachment_id
         );
 
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery -- Writes to the Reviewits custom review fields table; no equivalent WordPress core insert API exists.
         $inserted = $wpdb->insert(
             $table,
             [

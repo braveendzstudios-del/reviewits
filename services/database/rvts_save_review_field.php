@@ -45,8 +45,8 @@ class rvts_save_review_field
             '%s',
             '%d',
         ];
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery -- Writes to the Reviewits custom review fields table; no equivalent WordPress core insert API exists.
 
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery -- Writes to the Reviewits custom review fields table; no equivalent WordPress core insert API exists.
         $inserted = $wpdb->insert(
             $table,
             $data,
