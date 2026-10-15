@@ -1,12 +1,22 @@
+
 <?php
 
-class rvts_get_submitted_fields {
+if (! defined('ABSPATH')) {
+    exit;
+}
 
-    public function get() {
+class rvts_get_submitted_fields
+{
+
+    public function get()
+    {
 
         $submitted_fields = [];
 
-        foreach ( $_POST as $field_id => $value ) {
+        // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Nonce verification belongs to the submission handler.
+        $post_data = wp_unslash($_POST);
+
+        foreach ($post_data as $field_id => $value) {
 
             if (
                 in_array(
@@ -23,22 +33,26 @@ class rvts_get_submitted_fields {
                 continue;
             }
 
-            $clean_field_id = sanitize_key( $field_id );
+            $clean_field_id = sanitize_key($field_id);
 
-            if ( is_array( $value ) ) {
+            if ('' === $clean_field_id) {
+                continue;
+            }
 
-                $submitted_fields[ $clean_field_id ] =
-                    array_map(
-                        'sanitize_text_field',
-                        wp_unslash( $value )
-                    );
+            if (is_array($value)) {
 
-            } else {
+                $submitted_fields[$clean_field_id] = map_deep(
+                    $value,
+                    static function ($item) {
+                        return is_string($item)
+                            ? sanitize_text_field($item)
+                            : $item;
+                    }
+                );
+            } elseif (is_string($value)) {
 
-                $submitted_fields[ $clean_field_id ] =
-                    sanitize_textarea_field(
-                        wp_unslash( $value )
-                    );
+                $submitted_fields[$clean_field_id] =
+                    sanitize_textarea_field($value);
             }
         }
 
