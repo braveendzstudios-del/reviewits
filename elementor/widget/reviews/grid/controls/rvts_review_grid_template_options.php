@@ -20,7 +20,7 @@ class rvts_review_grid_template_options
                 'posts_per_page'         => -1,
                 'orderby'                => 'title',
                 'order'                  => 'ASC',
-
+                // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query -- Required to filter Elementor templates by Reviewits document type.
                 'meta_query' => [
                     [
                         // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key -- Required to filter Elementor document types.

@@ -54,7 +54,6 @@ class rvts_get_reviews
         }
 
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery -- Reads from the Reviewits custom reviews table; WordPress core APIs do not provide this query.
-
         $reviews = $wpdb->get_results(
             $wpdb->prepare(
                 "SELECT *
