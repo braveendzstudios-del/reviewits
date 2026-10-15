@@ -1,16 +1,18 @@
 <?php
 
- if ( ! defined( 'ABSPATH' ) ) exit;
+if (! defined('ABSPATH')) exit;
 
 use Elementor\Core\Documents_Manager;
 
-class rvts_plugin {
+class rvts_plugin
+{
 
-    public function __construct() {
+    public function __construct()
+    {
 
         add_action(
             'elementor/widgets/register',
-            array( $this, 'register_widgets' )
+            array($this, 'register_widgets')
         );
 
         new rvts_review_ajax();
@@ -22,7 +24,7 @@ class rvts_plugin {
          */
         add_action(
             'elementor/elements/categories_registered',
-            function( $elements_manager ) {
+            function ($elements_manager) {
 
                 $elements_manager->add_category(
                     'reviewits',
@@ -34,7 +36,6 @@ class rvts_plugin {
                         'icon'  => 'fa fa-star',
                     ]
                 );
-
             }
         );
 
@@ -43,7 +44,7 @@ class rvts_plugin {
          */
         add_action(
             'elementor/documents/register',
-            [ $this, 'register_documents' ],
+            [$this, 'register_documents'],
             20,
             1
         );
@@ -54,38 +55,36 @@ class rvts_plugin {
          */
         add_action(
             'elementor/document/before_save',
-            [ $this, 'validate_review_field_ids' ],
+            [$this, 'validate_review_field_ids'],
             10,
             2
         );
 
         add_filter(
             'template_include',
-            [ $this, 'review_loop_item_preview_canvas' ],
+            [$this, 'review_loop_item_preview_canvas'],
             99
         );
     }
 
+    public function review_loop_item_preview_canvas(string $template)
+    {
 
-    
-    public function review_loop_item_preview_canvas(string $template ) {
-        
-          // Read-only Elementor preview ID; this method does not change data.
-          // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only preview request; no data is modified.
-
-        if ( ! isset( $_GET['elementor-preview'] ) ) {
+        if (! isset($_GET['elementor-preview'])) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only Elementor preview parameter; no data is modified.
             return $template;
         }
 
-        $preview_id = absint( $_GET['elementor-preview'] );
+        $preview_id = absint(
+            wp_unslash($_GET['elementor-preview']) // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only Elementor preview ID; no data is modified.
+        );
 
-        if ( ! $preview_id ) {
+        if (! $preview_id) {
             return $template;
         }
 
         $document = \Elementor\Plugin::$instance
             ->documents
-            ->get( $preview_id );
+            ->get($preview_id);
 
         if (
             ! $document ||
@@ -97,7 +96,7 @@ class rvts_plugin {
         $canvas_template = ELEMENTOR_PATH
             . 'modules/page-templates/templates/canvas.php';
 
-        if ( file_exists( $canvas_template ) ) {
+        if (file_exists($canvas_template)) {
             return $canvas_template;
         }
 
@@ -180,14 +179,14 @@ class rvts_plugin {
         &$field_ids
     ) {
 
-        if ( ! is_array( $elements ) ) {
+        if (! is_array($elements)) {
             return;
         }
 
 
-        foreach ( $elements as $element ) {
+        foreach ($elements as $element) {
 
-            if ( ! is_array( $element ) ) {
+            if (! is_array($element)) {
                 continue;
             }
 
@@ -198,7 +197,7 @@ class rvts_plugin {
              * --------------------------------------------------
              */
             if (
-                isset( $element['widgetType'] ) &&
+                isset($element['widgetType']) &&
                 $element['widgetType'] === 'rvts_review_form'
             ) {
 
@@ -207,9 +206,9 @@ class rvts_plugin {
                 $fields = $settings['review_fields'] ?? [];
 
 
-                foreach ( $fields as $field ) {
+                foreach ($fields as $field) {
 
-                    $field_id = isset( $field['field_id'] )
+                    $field_id = isset($field['field_id'])
                         ? sanitize_key(
                             $field['field_id']
                         )
@@ -219,7 +218,7 @@ class rvts_plugin {
                     /*
                      * Ignore empty Field IDs.
                      */
-                    if ( ! $field_id ) {
+                    if (! $field_id) {
                         continue;
                     }
 
@@ -229,14 +228,14 @@ class rvts_plugin {
                      */
                     if (
                         isset(
-                            $field_ids[ $field_id ]
+                            $field_ids[$field_id]
                         )
                     ) {
 
                         throw new \Exception(
                             sprintf(
                                 'Please choose different Field IDs. The ID "%s" is already being used.',
-                                esc_html( $field_id )
+                                esc_html($field_id)
                             )
                         );
                     }
@@ -245,7 +244,7 @@ class rvts_plugin {
                     /*
                      * Remember this Field ID.
                      */
-                    $field_ids[ $field_id ] = true;
+                    $field_ids[$field_id] = true;
                 }
             }
 
@@ -256,9 +255,7 @@ class rvts_plugin {
              * --------------------------------------------------
              */
             if (
-                ! empty(
-                    $element['elements']
-                )
+                ! empty($element['elements'])
             ) {
 
                 $this->check_review_field_ids(
@@ -295,7 +292,7 @@ class rvts_plugin {
         $current_document_id = 0;
 
         if (
-            is_object( $document ) &&
+            is_object($document) &&
             method_exists(
                 $document,
                 'get_main_id'
@@ -346,9 +343,9 @@ class rvts_plugin {
          * Check every saved document.
          * --------------------------------------------------
          */
-        foreach ( $rows as $row ) {
+        foreach ($rows as $row) {
 
-            if ( empty( $row['meta_value'] ) ) {
+            if (empty($row['meta_value'])) {
                 continue;
             }
 
@@ -359,7 +356,7 @@ class rvts_plugin {
             );
 
 
-            if ( ! is_array( $elements ) ) {
+            if (! is_array($elements)) {
                 continue;
             }
 
