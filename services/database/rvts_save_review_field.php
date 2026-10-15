@@ -1,11 +1,12 @@
 
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
+if (! defined('ABSPATH')) {
     exit;
 }
 
-class rvts_save_review_field {
+class rvts_save_review_field
+{
 
     public function save(
         int $review_id,
@@ -23,18 +24,18 @@ class rvts_save_review_field {
 
         $table = $wpdb->prefix . 'rvts_review_fields';
 
-        if ( is_array( $field_value ) ) {
-            $field_value = wp_json_encode( $field_value );
+        if (is_array($field_value)) {
+            $field_value = wp_json_encode($field_value);
         }
 
         $data = [
             'review_id'   => $review_id,
-            'field_id'    => sanitize_key( $field_id ),
-            'field_type'  => sanitize_key( $field_type ),
+            'field_id'    => sanitize_key($field_id),
+            'field_type'  => sanitize_key($field_type),
             'field_value' => $field_value,
             'max_stars'   => (
                 'rating' === $field_type
-            ) ? max( 0, $max_stars ) : 0,
+            ) ? max(0, $max_stars) : 0,
         ];
 
         $formats = [
@@ -44,6 +45,7 @@ class rvts_save_review_field {
             '%s',
             '%d',
         ];
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery -- Writes to the Reviewits custom review fields table; no equivalent WordPress core insert API exists.
 
         $inserted = $wpdb->insert(
             $table,
@@ -51,12 +53,14 @@ class rvts_save_review_field {
             $formats
         );
 
-        if ( false === $inserted ) {
+        if (false === $inserted) {
             return new WP_Error(
                 'review_field_save_failed',
                 'Could not save the review field.'
             );
         }
+
+        rvts_review_cache::invalidate();
 
         return true;
     }

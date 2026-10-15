@@ -1,10 +1,11 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
+if (! defined('ABSPATH')) {
     exit;
 }
 
-class rvts_save_review_image_field {
+class rvts_save_review_image_field
+{
 
     public function save(
         int $review_id,
@@ -13,6 +14,7 @@ class rvts_save_review_image_field {
     ) {
 
         global $wpdb;
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery -- Writes to the Reviewits custom review fields table; no equivalent WordPress core insert API exists.
 
         $table = $wpdb->prefix . 'rvts_review_fields';
 
@@ -24,7 +26,7 @@ class rvts_save_review_image_field {
             $table,
             [
                 'review_id'   => $review_id,
-                'field_id'    => sanitize_key( $field_id ),
+                'field_id'    => sanitize_key($field_id),
                 'field_type'  => 'image',
                 'field_value' => $image_url ? $image_url : '',
             ],
@@ -36,7 +38,7 @@ class rvts_save_review_image_field {
             ]
         );
 
-        if ( false === $inserted ) {
+        if (false === $inserted) {
             return new WP_Error(
                 'review_image_field_save_failed',
                 'Could not save the review image field.'

@@ -22,6 +22,25 @@ class rvts_get_latest_review_image
             return null;
         }
 
+
+        $cache_key = rvts_review_cache::make_key(
+            'latest_review_image',
+            [$field_id]
+        );
+
+        $cache_found = false;
+        $cached_image = wp_cache_get(
+            $cache_key,
+            rvts_review_cache::CACHE_GROUP,
+            false,
+            $cache_found
+        );
+
+        if ($cache_found) {
+            return false === $cached_image ? null : $cached_image;
+        }
+
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery -- Reads and joins the Reviewits custom tables; WordPress core APIs do not provide this query.
         $image = $wpdb->get_row(
             $wpdb->prepare(
                 "SELECT
@@ -60,9 +79,19 @@ class rvts_get_latest_review_image
             return null;
         }
 
-        return [
+
+        $result = [
             'review_id' => absint($image['review_id']),
             'image_url' => $image_url,
         ];
+
+        wp_cache_set(
+            $cache_key,
+            $result,
+            rvts_review_cache::CACHE_GROUP,
+            5 * MINUTE_IN_SECONDS
+        );
+
+        return $result;
     }
 }

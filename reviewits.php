@@ -1,8 +1,8 @@
-<?php 
+<?php
+
 /**
- * Plugin Name:  Reviewits
- * Description: This Plugin helps you to create fully Customizable testimonials and  reviews for your website. Using Elementor Page Builder, you can easily create a testimonial and review section for your website. 
- * slug: reviewits
+ * Plugin Name: Reviewits
+ * Description: This Plugin helps you to create fully customizable testimonials and reviews for your website using Elementor Page Builder.
  * Author: kulwindersingh5555
  * License: GPL2 or later
  * Text Domain: reviewits
@@ -10,7 +10,7 @@
  * Version: 1.0.0
  */
 
-if( ! defined( 'ABSPATH' ) ) {
+if (! defined('ABSPATH')) {
     exit;
 }
 
@@ -19,83 +19,141 @@ new rvts_autoloader();
 
 register_activation_hook(
     __FILE__,
-    [ 'rvts_review_database', 'create_tables' ]
+    ['rvts_review_database', 'create_tables']
 );
 
-
-
-function reviewits_init() {
-
-    // Check if Elementor is loaded
-    if ( ! did_action( 'elementor/loaded' ) ) {
-        add_action( 'admin_notices', 'reviewits_elementor_missing_notice' );
+/**
+ * Initialize Reviewits.
+ */
+function rvts_reviewits_init()
+{
+    if (! did_action('elementor/loaded')) {
+        add_action(
+            'admin_notices',
+            'rvts_reviewits_elementor_missing_notice'
+        );
         return;
     }
-
-    // Elementor is available.
-    // Initialize Reviewits here.
 
     new rvts_plugin();
 }
 
-add_action( 'plugins_loaded', 'reviewits_init' );
-
+add_action('plugins_loaded', 'rvts_reviewits_init');
 
 /**
- * Admin notice when Elementor is missing
+ * Display a notice when Elementor is unavailable.
  */
-function reviewits_elementor_missing_notice() {
-    ?>
+function rvts_reviewits_elementor_missing_notice()
+{
+?>
     <div class="notice notice-error">
         <p>
-            <strong>Reviewits</strong> requires <strong>Elementor</strong> to be installed and activated.
+            <strong>Reviewits</strong> requires
+            <strong>Elementor</strong> to be installed and activated.
         </p>
     </div>
-    <?php
+<?php
 }
 
-/*
-Enque the necessary scripts and styles for the plugin
+/**
+ * Enqueue JavaScript assets.
  */
-
-//enqueue the necessary javascript for the review form
-function enqueue_scripts() {
-    wp_enqueue_script('reviewits-form-review', 
-    plugins_url('elementor/assets/js/rvts_form_review.js', __FILE__), 
-    array('jquery'), null, true);
+function rvts_enqueue_scripts()
+{
+    $form_script_path = plugin_dir_path(__FILE__)
+        . 'elementor/assets/js/rvts_form_review.js';
 
     wp_enqueue_script(
-    'reviewits-rvts-form-ajax-handler',
-    plugins_url( 'elementor/assets/js/rvts_form_ajax_handler.js', __FILE__ ),
-    array( 'jquery' ), null, true);
+        'reviewits-form-review',
+        plugins_url(
+            'elementor/assets/js/rvts_form_review.js',
+            __FILE__
+        ),
+        ['jquery'],
+        file_exists($form_script_path)
+            ? (string) filemtime($form_script_path)
+            : '1.0.0',
+        true
+    );
+
+    $ajax_script_path = plugin_dir_path(__FILE__)
+        . 'elementor/assets/js/rvts_form_ajax_handler.js';
+
+    wp_enqueue_script(
+        'reviewits-rvts-form-ajax-handler',
+        plugins_url(
+            'elementor/assets/js/rvts_form_ajax_handler.js',
+            __FILE__
+        ),
+        ['jquery'],
+        file_exists($ajax_script_path)
+            ? (string) filemtime($ajax_script_path)
+            : '1.0.0',
+        true
+    );
+
+    $read_more_script_path = plugin_dir_path(__FILE__)
+        . 'elementor/assets/js/rvts_review_text_read_more.js';
 
     wp_enqueue_script(
         'reviewits-rvts-review-text-read-more',
-        plugins_url( 'elementor/assets/js/rvts_review_text_read_more.js', __FILE__ ),
-        array( 'jquery' ), null, true
+        plugins_url(
+            'elementor/assets/js/rvts_review_text_read_more.js',
+            __FILE__
+        ),
+        ['jquery'],
+        file_exists($read_more_script_path)
+            ? (string) filemtime($read_more_script_path)
+            : '1.0.0',
+        true
     );
 
     wp_localize_script(
-    'reviewits-rvts-form-ajax-handler',
-    'rvts_ajax',
-    array(
-        'ajax_url' => admin_url( 'admin-ajax.php' ),
-        'nonce'    => wp_create_nonce( 'rvts_submit_review' ),
-    )
-);
-}
-
-add_action( 'wp_enqueue_scripts', 'enqueue_scripts' );
-
-//enqueue the necessary styles for the review form
-function enqueue_styles() {
-    wp_enqueue_style('reviewits-form-review', 
-    plugins_url('elementor/assets/css/rvts_form_review.css', __FILE__));
-
-    wp_enqueue_style(
-        'reviewits-rvts-review-text-read-more',
-        plugins_url( 'elementor/assets/css/rvts_review_text_widget.css', __FILE__ )
+        'reviewits-rvts-form-ajax-handler',
+        'rvts_ajax',
+        [
+            'ajax_url' => admin_url('admin-ajax.php'),
+            'nonce'    => wp_create_nonce('rvts_submit_review'),
+        ]
     );
 }
 
-add_action( 'wp_enqueue_scripts', 'enqueue_styles' );
+add_action('wp_enqueue_scripts', 'rvts_enqueue_scripts');
+
+/**
+ * Enqueue CSS assets.
+ */
+function rvts_enqueue_styles()
+{
+    $form_style_path = plugin_dir_path(__FILE__)
+        . 'elementor/assets/css/rvts_form_review.css';
+
+    wp_enqueue_style(
+        'reviewits-form-review',
+        plugins_url(
+            'elementor/assets/css/rvts_form_review.css',
+            __FILE__
+        ),
+        [],
+        file_exists($form_style_path)
+            ? (string) filemtime($form_style_path)
+            : '1.0.0'
+    );
+
+    $read_more_style_path = plugin_dir_path(__FILE__)
+        . 'elementor/assets/css/rvts_review_text_widget.css';
+
+    wp_enqueue_style(
+        'reviewits-rvts-review-text-read-more',
+        plugins_url(
+            'elementor/assets/css/rvts_review_text_widget.css',
+            __FILE__
+        ),
+        [],
+        file_exists($read_more_style_path)
+            ? (string) filemtime($read_more_style_path)
+            : '1.0.0'
+    );
+}
+
+add_action('wp_enqueue_scripts', 'rvts_enqueue_styles');

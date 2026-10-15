@@ -35,6 +35,26 @@ class rvts_get_reviews
 
         $table = $wpdb->prefix . 'rvts_reviews';
 
+
+        $cache_key = rvts_review_cache::make_key(
+            'reviews',
+            [$limit, $offset]
+        );
+
+        $cache_found = false;
+        $cached_reviews = wp_cache_get(
+            $cache_key,
+            rvts_review_cache::CACHE_GROUP,
+            false,
+            $cache_found
+        );
+
+        if ($cache_found) {
+            return $cached_reviews;
+        }
+
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery -- Reads from the Reviewits custom reviews table; WordPress core APIs do not provide this query.
+
         $reviews = $wpdb->get_results(
             $wpdb->prepare(
                 "SELECT *
@@ -48,9 +68,15 @@ class rvts_get_reviews
             ARRAY_A
         );
 
-        if (empty($reviews)) {
-            return [];
-        }
+
+        $reviews = empty($reviews) ? [] : $reviews;
+
+        wp_cache_set(
+            $cache_key,
+            $reviews,
+            rvts_review_cache::CACHE_GROUP,
+            5 * MINUTE_IN_SECONDS
+        );
 
         return $reviews;
     }

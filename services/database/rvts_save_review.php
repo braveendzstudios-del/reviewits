@@ -1,14 +1,17 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
+if (! defined('ABSPATH')) {
     exit;
 }
 
-class rvts_save_review {
+class rvts_save_review
+{
 
-    public function save() {
+    public function save()
+    {
 
         global $wpdb;
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery -- Writes to the Reviewits custom reviews table; no equivalent WordPress core insert API exists.
 
         $table = $wpdb->prefix . 'rvts_reviews';
 
@@ -22,14 +25,14 @@ class rvts_save_review {
             ]
         );
 
-        if ( false === $inserted ) {
-
+        if (false === $inserted) {
             return new WP_Error(
                 'review_save_failed',
                 'Could not save the review.'
             );
-
         }
+
+        rvts_review_cache::invalidate();
 
         return (int) $wpdb->insert_id;
     }
