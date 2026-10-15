@@ -1,30 +1,33 @@
 
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
+if (! defined('ABSPATH')) {
     exit;
 }
 
-class rvts_get_review_fields {
+class rvts_get_review_fields
+{
 
-    public function get( int $review_id ) {
+    public function get(int $review_id)
+    {
 
         global $wpdb;
 
-        $table = esc_sql( $wpdb->prefix . 'rvts_review_fields' );
-        
+        $table = $wpdb->prefix . 'rvts_review_fields';
+
         $fields = $wpdb->get_results(
             $wpdb->prepare(
                 "SELECT *
-                FROM {$table}
+                FROM %i
                 WHERE review_id = %d
                 ORDER BY id ASC",
-                absint( $review_id )
-            ), // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name uses the trusted WordPress database prefix and a fixed suffix; review_id uses a prepared placeholder.
+                $table,
+                absint($review_id)
+            ),
             ARRAY_A
         );
 
-        if ( empty( $fields ) ) {
+        if (empty($fields)) {
             return [];
         }
 

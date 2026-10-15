@@ -1,13 +1,15 @@
 
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
+if (! defined('ABSPATH')) {
     exit;
 }
 
-class rvts_get_reviews {
+class rvts_get_reviews
+{
 
-    public function get( array $args = [] ) {
+    public function get(array $args = [])
+    {
 
         global $wpdb;
 
@@ -23,28 +25,30 @@ class rvts_get_reviews {
 
         $limit = max(
             1,
-            absint( $args['limit'] )
+            absint($args['limit'])
         );
 
         $offset = max(
             0,
-            absint( $args['offset'] )
+            absint($args['offset'])
         );
 
-        $table = esc_sql( $wpdb->prefix . 'rvts_reviews' );
+        $table = $wpdb->prefix . 'rvts_reviews';
+
         $reviews = $wpdb->get_results(
             $wpdb->prepare(
                 "SELECT *
-                FROM {$table}
+                FROM %i
                 ORDER BY created_at DESC
                 LIMIT %d OFFSET %d",
+                $table,
                 $limit,
                 $offset
-            ), // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name is built from the trusted WordPress database prefix and a fixed suffix; limit and offset use prepared placeholders.
+            ),
             ARRAY_A
         );
 
-        if ( empty( $reviews ) ) {
+        if (empty($reviews)) {
             return [];
         }
 
