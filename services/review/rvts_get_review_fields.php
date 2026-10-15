@@ -11,8 +11,8 @@ class rvts_get_review_fields {
 
         global $wpdb;
 
-        $table = $wpdb->prefix . 'rvts_review_fields';
-
+        $table = esc_sql( $wpdb->prefix . 'rvts_review_fields' );
+        
         $fields = $wpdb->get_results(
             $wpdb->prepare(
                 "SELECT *

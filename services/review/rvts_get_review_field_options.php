@@ -11,8 +11,8 @@ class rvts_get_review_field_options {
 
         global $wpdb;
 
-        $table = $wpdb->prefix . 'rvts_review_fields';
-
+        $table = esc_sql( $wpdb->prefix . 'rvts_review_fields' );
+        
         $field_ids = $wpdb->get_col(
             // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name uses the WordPress database prefix and a fixed suffix; this query has no user-supplied SQL values.
             "

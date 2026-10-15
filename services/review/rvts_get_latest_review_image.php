@@ -11,18 +11,13 @@ class rvts_get_latest_review_image {
 
         global $wpdb;
 
-        $reviews_table = $wpdb->prefix . 'rvts_reviews';
-        $fields_table  = $wpdb->prefix . 'rvts_review_fields';
-
+        $reviews_table = esc_sql( $wpdb->prefix . 'rvts_reviews' );
+        $fields_table  = esc_sql( $wpdb->prefix . 'rvts_review_fields' );
         $field_id = sanitize_key( $field_id );
 
         if ( ! $field_id ) {
             return null;
         }
-
-        // Escape table names before interpolating them into the SQL query.
-        $reviews_table = esc_sql( $reviews_table );
-        $fields_table  = esc_sql( $fields_table );
 
         $image = $wpdb->get_row(
             $wpdb->prepare(

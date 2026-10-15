@@ -31,8 +31,7 @@ class rvts_get_reviews {
             absint( $args['offset'] )
         );
 
-        $table = $wpdb->prefix . 'rvts_reviews';
-
+        $table = esc_sql( $wpdb->prefix . 'rvts_reviews' );
         $reviews = $wpdb->get_results(
             $wpdb->prepare(
                 "SELECT *
