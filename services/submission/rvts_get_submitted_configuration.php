@@ -11,17 +11,19 @@ class rvts_get_submitted_configuration
     public function get()
     {
 
-        // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Nonce verification belongs to the submission handler.
-        if (! isset($_POST['rvts_field_configuration'])) {
+        if (! isset($_POST['rvts_field_configuration'])) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
             return [];
         }
 
-        // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Nonce verification belongs to the submission handler.
+        // Nonce verification is performed by rvts_review_ajax::submit_review().
         $raw_configuration = wp_unslash(
-            $_POST['rvts_field_configuration']
+            $_POST['rvts_field_configuration'] // phpcs:ignore WordPress.Security.NonceVerification.Missing, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
         );
 
-        if (! is_string($raw_configuration) || '' === $raw_configuration) {
+        if (
+            ! is_string($raw_configuration) ||
+            '' === $raw_configuration
+        ) {
             return [];
         }
 

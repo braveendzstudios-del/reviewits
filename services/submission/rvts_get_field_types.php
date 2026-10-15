@@ -13,14 +13,15 @@ class rvts_get_field_types
 
         $field_types = [];
 
-        // The AJAX handler must verify the nonce before calling this service.
-        // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Nonce verification belongs to the submission handler.
-        if (! isset($_POST['rvts_field_types'])) {
+        // Nonce verification is performed by rvts_review_ajax::submit_review().
+        if (! isset($_POST['rvts_field_types'])) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
             return $field_types;
         }
 
-        // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Nonce verification belongs to the submission handler.
-        $raw_field_types = wp_unslash($_POST['rvts_field_types']);
+        // The AJAX handler verifies the nonce before calling this service.
+        $raw_field_types = wp_unslash(
+            $_POST['rvts_field_types'] // phpcs:ignore WordPress.Security.NonceVerification.Missing, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+        );
 
         if (! is_array($raw_field_types)) {
             return $field_types;
