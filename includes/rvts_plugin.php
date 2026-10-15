@@ -311,6 +311,8 @@ class rvts_plugin
          * Reviewits Review Form widgets.
          * --------------------------------------------------
          */
+
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Required to validate globally unique Reviewits field IDs against current Elementor document data before saving.
         $rows = $wpdb->get_results(
             $wpdb->prepare(
                 "
@@ -323,7 +325,7 @@ class rvts_plugin
                     {$wpdb->postmeta} AS pm
                     ON p.ID = pm.post_id
                 WHERE
-                    pm.meta_key = '_elementor_data'
+                    pm.meta_key = %s
                 AND
                     pm.meta_value LIKE %s
                 AND
@@ -331,11 +333,13 @@ class rvts_plugin
                 AND
                     p.post_type != 'revision'
                 ",
+                '_elementor_data',
                 '%rvts_review_form%',
                 $current_document_id
             ),
             ARRAY_A
         );
+
 
 
         /*
