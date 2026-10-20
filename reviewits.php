@@ -159,7 +159,7 @@ function rvts_enqueue_styles()
     wp_enqueue_style(
         'reviewits-rvts-review-grid',
         plugins_url(
-            'elementor/assets/css/rvts_review_grid.css',
+            'elementor/assets/css/rvts_grid_state.css',
             __FILE__
         ),
         [],
