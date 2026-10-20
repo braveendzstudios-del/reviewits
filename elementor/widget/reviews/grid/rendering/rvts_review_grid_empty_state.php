@@ -1,8 +1,10 @@
 <?php
 
-class rvts_review_grid_empty_state {
+class rvts_review_grid_empty_state
+{
 
-    public function render( string $type = 'template' ) {
+    public function render(string $type = 'template')
+    {
 
         /*
          * --------------------------------------------------
@@ -10,7 +12,7 @@ class rvts_review_grid_empty_state {
          * --------------------------------------------------
          */
 
-        if ( $type === 'reviews' ) {
+        if ($type === 'reviews') {
 
             $title = esc_html__(
                 'No Reviews Found',
@@ -21,7 +23,6 @@ class rvts_review_grid_empty_state {
                 'There are no reviews to display yet.',
                 'reviewits'
             );
-
         } else {
 
             $title = esc_html__(
@@ -50,7 +51,7 @@ class rvts_review_grid_empty_state {
             </div>
 
             <h3>
-                ' . esc_html( $title ). '
+                ' . esc_html($title) . '
             </h3>
 
             <p>
@@ -58,63 +59,5 @@ class rvts_review_grid_empty_state {
             </p>
 
         </div>';
-
-
-        /*
-         * --------------------------------------------------
-         * EMPTY STATE CSS
-         * --------------------------------------------------
-         */
-
-        echo '
-        <style>
-
-            .rvts-review-grid-empty {
-                width: 100%;
-                min-height: 260px;
-                padding: 45px 30px;
-                box-sizing: border-box;
-                border: 1px dashed #d5d8dc;
-                border-radius: 8px;
-                background: #fafafa;
-                text-align: center;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-            }
-
-            .rvts-review-grid-empty-icon {
-                width: 52px;
-                height: 52px;
-                margin-bottom: 18px;
-                border-radius: 50%;
-                background: #f1f3f5;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-
-            .rvts-review-grid-empty-icon i {
-                font-size: 24px;
-                color: #6d7882;
-            }
-
-            .rvts-review-grid-empty h3 {
-                margin: 0 0 10px;
-                font-size: 18px;
-                font-weight: 600;
-                color: #1f2124;
-            }
-
-            .rvts-review-grid-empty p {
-                max-width: 560px;
-                margin: 0;
-                font-size: 13px;
-                line-height: 1.6;
-                color: #6d7882;
-            }
-
-        </style>';
     }
 }

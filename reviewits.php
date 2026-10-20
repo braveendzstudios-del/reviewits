@@ -6,6 +6,7 @@
  * Author: kulwindersingh5555
  * License: GPL2 or later
  * Text Domain: reviewits
+ * Requires PHP: 8.0
  * Requires Plugins: elementor
  * Version: 1.0.0
  */
@@ -147,6 +148,18 @@ function rvts_enqueue_styles()
         'reviewits-rvts-review-text-read-more',
         plugins_url(
             'elementor/assets/css/rvts_review_text_widget.css',
+            __FILE__
+        ),
+        [],
+        file_exists($read_more_style_path)
+            ? (string) filemtime($read_more_style_path)
+            : '1.0.0'
+    );
+
+    wp_enqueue_style(
+        'reviewits-rvts-review-grid',
+        plugins_url(
+            'elementor/assets/css/rvts_review_grid.css',
             __FILE__
         ),
         [],
