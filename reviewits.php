@@ -4,7 +4,11 @@
  * Plugin Name: Reviewits
  * Description: This Plugin helps you to create fully customizable testimonials and reviews for your website using Elementor Page Builder.
  * Author: kulwindersingh5555
- * License: GPL2 or later
+ * Requires at least: 6.2
+ * Requires PHP: 8.0
+ * Requires at least: 6.2
+ * GPLv2 or later
+ * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: reviewits
  * Requires Plugins: elementor
  * Version: 1.0.0
