@@ -6,7 +6,6 @@
  * Author: kulwindersingh5555
  * License: GPL2 or later
  * Text Domain: reviewits
- * Requires PHP: 8.0
  * Requires Plugins: elementor
  * Version: 1.0.0
  */
