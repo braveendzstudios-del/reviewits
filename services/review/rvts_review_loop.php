@@ -27,7 +27,7 @@ class rvts_review_loop {
                     $template_id
                 );
 
-            echo  wp_kses_post($content);
+            echo $content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Elementor generates the template HTML.
         }
 
         rvts_review_context::clear();

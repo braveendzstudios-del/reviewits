@@ -37,9 +37,8 @@ class rvts_review_grid_layout {
          */
         echo '<div class="rvts-review-grid" style="';
         echo 'display:grid;';
-        echo 'grid-template-columns:repeat(' .
-            esc_attr( $columns ) .
-            ', minmax(0, 1fr));';
+        echo 'grid-template-columns:repeat(' . esc_attr( $columns ) . ', minmax(0, 1fr));';
+        echo 'align-items:stretch;';
         echo '">';
 
         foreach ( $reviews as $review ) {
