@@ -1,0 +1,53 @@
+/* Reviewits equal-height review cards */
+
+.rvts-review-grid {
+    display: grid;
+    grid-template-columns: repeat(
+        var(--rvts-columns-desktop, 3),
+        minmax(0, 1fr)
+    );
+    align-items: stretch;
+    width: 100%;
+}
+
+.rvts-review-grid .rvts-review-grid-item {
+    display: flex;
+    min-width: 0;
+    align-items: stretch;
+}
+
+.rvts-review-grid .rvts-review-grid-item > .elementor {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-width: 0;
+}
+
+.rvts-review-grid .rvts-review-grid-item > .elementor > .e-con.e-parent {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+/* Tablet */
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+    .rvts-review-grid {
+        grid-template-columns: repeat(
+            var(--rvts-columns-tablet, 2),
+            minmax(0, 1fr)
+        );
+    }
+}
+
+/* Mobile */
+@media screen and (max-width: 767px) {
+    .rvts-review-grid {
+        grid-template-columns: repeat(
+            var(--rvts-columns-mobile, 1),
+            minmax(0, 1fr)
+        );
+    }
+}

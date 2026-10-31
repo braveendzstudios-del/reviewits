@@ -168,6 +168,18 @@ function rvts_enqueue_styles()
             ? (string) filemtime($read_more_style_path)
             : '1.0.0'
     );
+
+    wp_enqueue_style(
+        'reviewits-rvts-review-grid-style',
+        plugins_url(
+            'elementor/assets/css/rvts_grid.css',
+            __FILE__
+        ),
+        [],
+        file_exists($read_more_style_path)
+            ? (string) filemtime($read_more_style_path)
+            : '1.0.0'
+    );
 }
 
 add_action('wp_enqueue_scripts', 'rvts_enqueue_styles');
