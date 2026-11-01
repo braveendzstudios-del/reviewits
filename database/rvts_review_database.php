@@ -1,5 +1,9 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
 class rvts_review_database {
 
     public static function create_tables() {
@@ -9,7 +13,6 @@ class rvts_review_database {
         require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 
         $charset_collate = $wpdb->get_charset_collate();
-
 
         /*
          * ==========================================
@@ -28,12 +31,11 @@ class rvts_review_database {
             image_id BIGINT UNSIGNED NOT NULL DEFAULT 0,
             status VARCHAR(20) NOT NULL DEFAULT 'pending',
             created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-            PRIMARY KEY (id),
-            INDEX status_index (status),
-            INDEX rating_index (rating),
-            INDEX image_id_index (image_id)
+            PRIMARY KEY  (id),
+            KEY status_index (status),
+            KEY rating_index (rating),
+            KEY image_id_index (image_id)
         ) {$charset_collate};";
-
 
         /*
          * ==========================================
@@ -49,12 +51,12 @@ class rvts_review_database {
             field_id VARCHAR(255) NOT NULL,
             field_type VARCHAR(50) NOT NULL,
             field_value LONGTEXT NULL,
-            PRIMARY KEY (id),
-            INDEX review_id_index (review_id),
-            INDEX field_id_index (field_id),
-            INDEX field_type_index (field_type)
+            max_stars INT NOT NULL DEFAULT 0,
+            PRIMARY KEY  (id),
+            KEY review_id_index (review_id),
+            KEY field_id_index (field_id),
+            KEY field_type_index (field_type)
         ) {$charset_collate};";
-
 
         /*
          * ==========================================
@@ -65,6 +67,5 @@ class rvts_review_database {
         dbDelta( $reviews_sql );
 
         dbDelta( $fields_sql );
-
     }
 }
