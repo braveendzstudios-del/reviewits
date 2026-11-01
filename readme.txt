@@ -32,6 +32,16 @@ Whether you're building a business website, service website, agency website, or 
 
 Customer testimonials can help visitors understand other customers' experiences with your business. Reviewits gives you a flexible way to present this feedback using Elementor, allowing you to create a testimonial section that fits your website's design.
 
+== Video Tutorial ==
+
+Learn how to create a testimonials page using Reviewits and Elementor.
+
+Watch the tutorial on YouTube:
+
+https://youtu.be/6E-LMSx42z8
+
+**Note:** This is a Reviewits plugin tutorial, not an Elementor design tutorial. Elementor is required to use Reviewits' Elementor widgets.
+
 == Installation ==
 
 1. Install and activate Elementor.
