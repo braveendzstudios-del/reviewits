@@ -1,6 +1,5 @@
 <?php
 use Elementor\Repeater;
-use Elementor\Widget_Base;
 
 class rvts_review_form extends \Elementor\Widget_Base {
 
