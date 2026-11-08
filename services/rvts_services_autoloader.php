@@ -15,18 +15,34 @@ class rvts_services_autoloader {
 
         $paths = [
 
-            $base . 'services/submission/' .
-                $class_name . '.php',
+            // Submission services.
+            $base . 'services/submission/data/' . $class_name . '.php',
+
+            $base . 'services/submission/validation/' . $class_name . '.php',
+
+            $base . 'services/submission/processing/' . $class_name . '.php',
 
             $base . 'services/configuration/' .
                 $class_name . '.php',
 
-            $base . 'services/review/' .
-                $class_name . '.php',
+            // Review services.
+            $base . 'services/review/data/' . $class_name . '.php',
 
-            $base . 'services/validation/' .
-                $class_name . '.php',
+            $base . 'services/review/fields/' . $class_name . '.php',
 
+            $base . 'services/review/extractors/' . $class_name . '.php',
+
+            $base . 'services/review/media/' . $class_name . '.php',
+
+            $base . 'services/review/cache/' . $class_name . '.php',
+
+            $base . 'services/review/context/' . $class_name . '.php',
+
+            $base . 'services/review/rendering/' . $class_name . '.php',
+            
+            $base . 'services/validation/' .$class_name . '.php',
+            
+            
             $base . 'services/image/' .
                 $class_name . '.php',
 
