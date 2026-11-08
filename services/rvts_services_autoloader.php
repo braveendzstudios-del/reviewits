@@ -40,7 +40,10 @@ class rvts_services_autoloader {
 
             $base . 'services/review/rendering/' . $class_name . '.php',
             
-            $base . 'services/validation/' .$class_name . '.php',
+            // Validation services.
+            $base . 'services/validation/fields/' . $class_name . '.php',
+
+            $base . 'services/validation/core/' . $class_name . '.php',
             
             
             $base . 'services/image/' .
